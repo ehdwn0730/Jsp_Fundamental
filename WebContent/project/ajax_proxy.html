@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서울특별시 동물병원 검색</title>
+    <script type = "text/javascript" src = "../js/jquery-3.5.1.js"></script>
+    <script>
+        
+        $(function(){
+            $('#btn').click(function(){
+               $.ajax({
+                   url : 'proxy.jsp?url=http://openapi.seoul.go.kr:8088/5246785571717365353246414c496f/xml/vtrHospitalInfo/1/1000/',
+                   type : 'GET',
+                   dataType : 'xml',
+                   error : function(){
+                       alert('error');
+                   },
+                   success : function(xml){
+	                	   	$(xml).find("row").each(function(){
+		                		let NM = $(this).find("NM").text();
+		                	   	let ADDR = $(this).find("ADDR").text();
+		                	   	let STATE = $(this).find("STATE").text();
+		                	   	let XCODE = $(this).find("XCODE").text();
+		                	   	let YCODE = $(this).find("YCODE").text();
+		                	   	var info = NM + "," + ADDR + "," + STATE +"<br>";                	   	   
+		                        $("#sel").append(info);
+                	   		});
+                   }
+               });
+
+             
+            });
+        });
+
+    </script>
+</head>
+<body>
+	<div class = "container">
+		<div class = "row" style = "margin-top :20px">
+			<div class = "col-sm-12">
+				<h5 class = "card-title">서울특별시 동물병원 검색</h5>
+				<div class = "form-row d-flex align-items-center">
+					<div class = "form-group col-md-10">
+						<input type = "text" id ="address" name ="address" class = "form-control" placeholder="예) 강남구 "/>
+					</div>
+				</div>
+			</div>
+	</div>
+    <button id = "btn">가져오기</button>
+    <div id = "sel">
+
+    </select>
+    
+</body>
+</html>
