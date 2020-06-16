@@ -27,7 +27,7 @@
    */
    NoticeDao dao = NoticeDao.getInstance();
    int start   =  (cPage-1)*4;
-   ArrayList<NoticeDto> list = dao.select(start ,  4 );
+   ArrayList<NoticeDto> list = dao.select(start ,  10);
    
    
 %>
@@ -73,36 +73,73 @@
             
             <%
             	int totalRows = dao.getRows();//128
-            	
+            	int totalPage = 0;
             	int currentBlock = 0;
+            	int totalBlock = 0;
+            	
+            	if(totalRows%10 == 0){
+            		totalPage = totalRows/10;
+            	}else{
+            		totalPage = totalRows/10 +1;
+            	}
+            	
+            	if(totalPage == 0){
+            		totalPage =1;
+            	}
+            	
             	if(cPage % 10 == 0){
             		currentBlock = cPage/10;
             	}else{
             		currentBlock = cPage/10 +1;
             	}
             	
+            	if(totalPage%10 ==0){
+            		totalBlock = totalPage/10;
+            	}else{
+            		totalBlock = totalPage/10 +1;
+            	}
+            	
             	int startPage = 1 +(currentBlock -1) *10;
             	int endPage = 10 +(currentBlock -1) *10;
+            	
+            	if(currentBlock == totalBlock){
+            		endPage = totalPage;
+            	}
+            	
             	/*
             	128개
             	Previous 1 2 3 4 5 6 7 8 9 10 Next ==> currentBlock : 1block
-            	previous 11 12 13 Next 			   ==> currentBlock : 2block
+            	Previous 11 12 13 Next 			   ==> currentBlock : 2block
             	
-            	
+            	65개
+            	Previous 1 2 3 4 5 6 7 Next
             	
             	*/
             	
             %>
             <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center">
+              	<%if(currentBlock == 1){ %>
                 <li class="page-item disabled">
                   <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
                 </li>
-                <%for(int i = startPage; i<=endPage; i++){ %>
-                <li class="page-item"><a class="page-link" href="List.jsp?page=<%=i%>"><%=i%></a></li>
+                <%}else{ %>
                 <li class="page-item">
+                  <a class="page-link" href="list.jsp?page=<%=startPage-1 %>" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <%} %>
+                <%for(int i = startPage; i<=endPage; i++){ %>
+                <li class="page-item"><a class="page-link" href="List.jsp?page=<%=i%>"></a><%=i %></li>
+                <%} %>
+                <%if(totalBlock == currentBlock){ %>
+                <li class="page-item disabled">
                   <a class="page-link" href="#">Next</a>
                 </li>
+                <%}else{ %>
+                <li class="page-item">
+                  <a class="page-link" href="List.jsp?page=<%=endPage+1%>">Next</a>
+                </li>
+                <%} %>
               </ul>
             </nav>
             

@@ -26,3 +26,5 @@ WHERE n_num =1;
 
 DELETE FROM notice
 WHERE n_num = 1;
+
+
