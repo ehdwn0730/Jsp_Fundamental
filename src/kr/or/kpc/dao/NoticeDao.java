@@ -148,7 +148,7 @@ public class NoticeDao {
 			con = ConnLocator.getConnect();
 			StringBuffer sql = new StringBuffer();
 			sql.append("SELECT n_num, n_writer, n_title, n_content, ");
-			sql.append("DATE_FORMAT(n_redgate, '%Y,%m,%d,%h:%i') ");
+			sql.append("DATE_FORMAT(n_regdate, '%Y,%m,%d,%h:%i') ");
 			sql.append("FROM notice ");
 			sql.append("ORDER BY n_num DESC ");
 			sql.append("LIMIT ?, ? ");
@@ -202,7 +202,7 @@ public class NoticeDao {
 			con = ConnLocator.getConnect();
 			StringBuffer sql = new StringBuffer();
 			sql.append("SELECT n_num, n_writer, n_title, n_content, ");
-			sql.append("DATE_FORMAT(n_redgate, '%Y,%m,%d,%h:%i') ");
+			sql.append("DATE_FORMAT(n_regdate, '%Y,%m,%d,%h:%i') ");
 			sql.append("FROM notice ");
 			sql.append("where n_num =? ");
 
@@ -242,6 +242,7 @@ public class NoticeDao {
 		}
 		return dto;
 	}
+	
 	public int getRows() {
 		int count = 0 ;
 		Connection con = null;
@@ -276,5 +277,41 @@ public class NoticeDao {
 			
 		}
 		return count;
+	}
+	
+	public int getMaxNum() {
+		int max = 0 ;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConnLocator.getConnect();
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT ifnull(MAX(n_num)+1,1) FROM notice;");
+			
+			pstmt = con.prepareStatement(sql.toString());
+			
+			int index = 0;
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				index = 0;
+				max = rs.getInt(++index);
+			}
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+		return max;
 	}
 }
