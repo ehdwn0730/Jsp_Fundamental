@@ -2,28 +2,10 @@
 <head>
 	<meta charset="utf-8">
     <title></title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-	<!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="/js/jquery-3.5.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    
     <script type="text/javascript" src="../js/jquery-3.5.1.js"></script>
     <script type="text/javascript"></script>
 
 </head>
-
-<style>
-	.search-header{
-		color : #fff;
-	}
-	.search-tag-line{
-		color : #fff;
-	}
-</style>
-
     <script>       
         //버튼을 누르면 데이터를 가져올 수 있는 작성문
         $(function(){
@@ -65,8 +47,8 @@
                         	//row열에서 들어와서 지도명 주소의 무슨구 인지를 text함수로 찾아서 변수로 저장.
 							    var msg = "";
                         		msg +="<div class='table-responsive-md'>";
-	    						msg +="<table class='table table-bordered table-hover'>";
-	    						msg +="<thead class = 'thead-light'>";
+	    						msg +="<table class='ta ble table-bordered'>";
+	    						msg +="<thead>";
 	    						msg +="<tr>";
 	    						msg +="<th>이름</th>";
 	    						msg +="<th>주소</th>";
@@ -112,26 +94,25 @@
     </script>
 <body>
 
-<div class = "container">
-		<div class = "row" style = "margin-top : 40px">
-			</div>
-		</div>
+    <div class = "container">
+    	<div class = "row" style = "margin-top : 20px">
+    		
+    		<div class = "form-group col-md-10">
+    			<input type = "text" id = "searchbox" name = "searchbox"
+    			class = "form-control" placeholder = "예)양천구"/>
+    		</div>
+    		
+    		<div class = "form-group col-md-2">
+    			<button id = "search" class = "btn btn-info btn-lg btn-block">찾기</button>
+    		</div>
+    		
+    	</div>
+    </div>
 		
-		<div class = "image" style = "background-image : url('https://doc.raonworks.com/wp-content/uploads/2019/11/web-design-2906159_1920.jpg')">
-			<div class = "container">
-				<h4 class = "search-header">무엇을 찾으시나요?</h4>
-				<p class = "search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
-			<form id="search-form" class="search-form clearfix">
-				<input class="form-control input-lg" type="text" id="searchbox" name="searchbox" placeholder="예)서울특별시 양천구  or 양천구" title="* Please enter a search term!"/>
-				<button id = "search" class = "button" type = "button">Search</button>
-				<div id="search-error-container"></div>
-			</form>
-			</div>
-		</div>
-		
-			<div class="col-sm-12" id="content">			
-			</div>
-
-
+		<div class="col-sm-12" id="content">			
+    	</div>
+    
 </body>
+
+    
 </html>
